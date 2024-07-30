@@ -5,14 +5,12 @@ import com.mydomain.app.model.Propietario;
 import com.mydomain.app.repository.MascotaRepository;
 import com.mydomain.app.service.ExternalService;
 import com.mydomain.app.service.MascotaService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -53,7 +51,7 @@ class MascotaService08JUnitMockitoCoverageTest {
         when(mascotaRepository.guardar(any(Mascota.class))).thenReturn(mascota);
 
         // Act(Actuar)
-        Mascota registrada = mascotaService.registrarMascota(mascota);
+        Mascota registrada = mascotaService.registrarMascotaTipoUno(mascota);
 
         // Assert(Afirmar) : JUnit
         assertNotNull(registrada, "La mascota registrada no debería ser null.");
@@ -97,7 +95,7 @@ class MascotaService08JUnitMockitoCoverageTest {
 
         // Act(Actuar)
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            mascotaService.registrarMascota(mascota);
+            mascotaService.registrarMascotaTipoUno(mascota);
         });
 
         // Assert(Afirmar)
@@ -110,7 +108,7 @@ class MascotaService08JUnitMockitoCoverageTest {
         Mascota mascota = new Mascota();
         mascota.setNombre("Garfield");
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("La mascota debe tener un propietario.",exception.getMessage());
     }
@@ -123,7 +121,7 @@ class MascotaService08JUnitMockitoCoverageTest {
         mascota.setNombre("Garfield");
         mascota.setPropietario(propietario);
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("El propietario debe tener un teléfono registrado.",exception.getMessage());
     }
@@ -136,7 +134,7 @@ class MascotaService08JUnitMockitoCoverageTest {
         mascota.setNombre("Garfield");
         mascota.setPropietario(propietario);
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("El propietario debe tener un teléfono registrado.",exception.getMessage());
     }
@@ -151,7 +149,7 @@ class MascotaService08JUnitMockitoCoverageTest {
         // Mocks
         when(externalService.validarVacunas(any(Mascota.class))).thenReturn(false);
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalStateException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalStateException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("La mascota no tiene todas las vacunas al día.",exception.getMessage());
     }
@@ -167,7 +165,7 @@ class MascotaService08JUnitMockitoCoverageTest {
         when(externalService.validarVacunas(any(Mascota.class))).thenReturn(true);
         when(externalService.verificarRegistroMunicipal(any(Mascota.class))).thenReturn(false);
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalStateException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalStateException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("La mascota no está registrada en el municipio.",exception.getMessage());
     }
@@ -185,7 +183,7 @@ class MascotaService08JUnitMockitoCoverageTest {
         when(externalService.verificarRegistroMunicipal(any(Mascota.class))).thenReturn(true);
         when(mascotaRepository.findById(any())).thenReturn(Optional.of(mascota));
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalStateException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalStateException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("Esta mascota ya está registrada.",exception.getMessage());
     }

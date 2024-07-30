@@ -1,15 +1,12 @@
 package com.mydomain.app;
 
 import com.mydomain.app.model.Mascota;
-import com.mydomain.app.model.Propietario;
 import com.mydomain.app.repository.MascotaRepository;
 import com.mydomain.app.repository.MascotaRepositoryImpl;
 import com.mydomain.app.service.ExternalService;
 import com.mydomain.app.service.ExternalServiceImpl;
 import com.mydomain.app.service.MascotaService;
 import org.junit.jupiter.api.*;
-
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -70,7 +67,7 @@ class MascotaService04JUnitFixtureTest {
         // Assert(Afirmar) : JUnit
 
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         assertEquals("El nombre de la mascota no puede estar vacío.", exception.getMessage());
     }
 
@@ -85,7 +82,7 @@ class MascotaService04JUnitFixtureTest {
         // Assert(Afirmar) : JUnit
 
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         assertEquals("El nombre de la mascota no puede estar vacío.", exception.getMessage());
     }
 

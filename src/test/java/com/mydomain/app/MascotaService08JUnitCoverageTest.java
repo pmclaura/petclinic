@@ -8,7 +8,6 @@ import com.mydomain.app.service.ExternalService;
 import com.mydomain.app.service.ExternalServiceImpl;
 import com.mydomain.app.service.MascotaService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +38,7 @@ class MascotaService08JUnitCoverageTest {
         mascota.setPropietario(propietario);
 
         // Act(Actuar)
-        Mascota registrada = mascotaService.registrarMascota(mascota);
+        Mascota registrada = mascotaService.registrarMascotaTipoUno(mascota);
 
         // Assert(Afirmar) : JUnit
         assertNotNull(registrada, "La mascota registrada no debería ser null.");
@@ -53,7 +52,7 @@ class MascotaService08JUnitCoverageTest {
         Mascota mascota = new Mascota();
         mascota.setPropietario(propietario);
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("El nombre de la mascota no puede estar vacío.",exception.getMessage());
     }
@@ -66,7 +65,7 @@ class MascotaService08JUnitCoverageTest {
         mascota.setNombre("");
         mascota.setPropietario(propietario);
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("El nombre de la mascota no puede estar vacío.",exception.getMessage());
     }
@@ -77,7 +76,7 @@ class MascotaService08JUnitCoverageTest {
         Mascota mascota = new Mascota();
         mascota.setNombre("Garfield");
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("La mascota debe tener un propietario.",exception.getMessage());
     }
@@ -90,7 +89,7 @@ class MascotaService08JUnitCoverageTest {
         mascota.setNombre("Garfield");
         mascota.setPropietario(propietario);
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("El propietario debe tener un teléfono registrado.",exception.getMessage());
     }
@@ -103,7 +102,7 @@ class MascotaService08JUnitCoverageTest {
         mascota.setNombre("Garfield");
         mascota.setPropietario(propietario);
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("El propietario debe tener un teléfono registrado.",exception.getMessage());
     }
@@ -116,7 +115,7 @@ class MascotaService08JUnitCoverageTest {
         mascota.setNombre("sin vacuna");
         mascota.setPropietario(propietario);
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalStateException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalStateException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("La mascota no tiene todas las vacunas al día.",exception.getMessage());
     }
@@ -129,7 +128,7 @@ class MascotaService08JUnitCoverageTest {
         mascota.setNombre("no registrado");
         mascota.setPropietario(propietario);
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalStateException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalStateException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("La mascota no está registrada en el municipio.",exception.getMessage());
     }
@@ -143,7 +142,7 @@ class MascotaService08JUnitCoverageTest {
         mascota.setNombre("Garfield");
         mascota.setPropietario(propietario);
         // Act(Actuar)
-        Exception exception = assertThrows(IllegalStateException.class, () -> mascotaService.registrarMascota(mascota));
+        Exception exception = assertThrows(IllegalStateException.class, () -> mascotaService.registrarMascotaTipoUno(mascota));
         // Assert(Afirmar)
         assertEquals("Esta mascota ya está registrada.",exception.getMessage());
     }

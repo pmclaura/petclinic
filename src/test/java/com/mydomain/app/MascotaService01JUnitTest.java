@@ -31,7 +31,7 @@ class MascotaService01JUnitTest {
         mascota.setPropietario(propietario);
 
         // Act(Actuar)
-        Mascota registrada = mascotaService.registrarMascota(mascota);
+        Mascota registrada = mascotaService.registrarMascotaTipoUno(mascota);
 
         // Assert(Afirmar) : JUnit
 

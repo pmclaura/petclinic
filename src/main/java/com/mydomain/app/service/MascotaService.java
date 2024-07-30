@@ -1,6 +1,9 @@
 package com.mydomain.app.service;
 
+import com.mydomain.app.exception.EdadNoValidaException;
+import com.mydomain.app.exception.TipoDeMascotaNoValidaException;
 import com.mydomain.app.model.Mascota;
+import com.mydomain.app.model.TipoDeMascota;
 import com.mydomain.app.repository.MascotaRepository;
 
 import java.util.Optional;
@@ -14,7 +17,7 @@ public class MascotaService {
         this.externalService = service;
     }
 
-    public Mascota registrarMascota(Mascota mascota) {
+    public Mascota registrarMascotaTipoUno(Mascota mascota) {
         // Regla 1: El nombre de la mascota no puede estar vacío.
         if (mascota.getNombre() == null || mascota.getNombre().trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre de la mascota no puede estar vacío.");
@@ -66,4 +69,63 @@ public class MascotaService {
         // Simulación de envío de correo
         System.out.println("Enviando correo de notificación para la mascota registrada: " + mascota.getNombre());
     }
+
+    public Mascota registrarMascotaTipoDos(Mascota mascota){
+        if (mascota.getNombre() == null || mascota.getNombre().trim().isEmpty())
+            throw new IllegalArgumentException("El nombre de la mascota no puede estar vacío.");
+
+        if (mascota.getPropietario() == null)
+            throw new IllegalArgumentException("La mascota debe tener un propietario.");
+
+        if (!externalService.validarVacunas(mascota))
+            throw new IllegalStateException("La mascota no tiene todas las vacunas al día.");
+
+        if (!externalService.verificarRegistroMunicipal(mascota))
+            throw new IllegalStateException("La mascota no está registrada en el municipio.");
+
+        if (mascota.getEdad() <= 0)
+            throw new EdadNoValidaException("Edad no válida");
+
+        if (mascota.getTipoDeMascota() == null)
+            throw new TipoDeMascotaNoValidaException("Se debe indicar el tipo de mascota");
+
+        Optional<Mascota> existente = mascotaRepository.findById(mascota.getId());
+        if (existente.isPresent()) {
+            throw new IllegalStateException("Esta mascota ya está registrada.");
+        }
+
+        Mascota registrada = mascotaRepository.guardar(mascota);
+
+        return registrada;
+    }
+
+    public Mascota editarMascotaTipoDos(Mascota mascota) {
+
+        Mascota existente = mascotaRepository.findById(mascota.getId()).orElseThrow();
+
+        if (mascota.getNombre() == null || mascota.getNombre().trim().isEmpty())
+            throw new IllegalArgumentException("El nombre de la mascota no puede estar vacío.");
+
+        if (mascota.getPropietario() == null)
+            throw new IllegalArgumentException("La mascota debe tener un propietario.");
+
+        if (mascota.getEdad() <= 0)
+            throw new EdadNoValidaException("Edad no válida");
+
+        if (mascota.getTipoDeMascota() == null)
+            throw new TipoDeMascotaNoValidaException("Se debe indicar el tipo de mascota");
+
+        existente.setNombre(mascota.getNombre());
+        existente.setPropietario(mascota.getPropietario());
+        existente.setEdad(mascota.getEdad());
+        existente.setTipoDeMascota(mascota.getTipoDeMascota());
+        return mascotaRepository.guardar(existente);
+    }
+
+    public boolean esterelizar(Mascota mascota) {
+        Optional<Mascota> encontrada = mascotaRepository.findById(mascota.getId());
+        return encontrada.get().getTipoDeMascota().equals(TipoDeMascota.PERRO)
+                || encontrada.get().getTipoDeMascota().equals(TipoDeMascota.GATO);
+    }
+
 }

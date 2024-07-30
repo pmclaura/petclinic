@@ -53,7 +53,7 @@ class MascotaService06JUnitMockitoCaptorTest {
 
 
         // Act(Actuar)
-        Mascota registrada = mascotaService.registrarMascota(mascota);
+        Mascota registrada = mascotaService.registrarMascotaTipoUno(mascota);
 
         // Verifica que el objeto no es null.
         assertNotNull(registrada, "La mascota registrada no debería ser null.");

@@ -64,7 +64,7 @@ class MascotaService05JUnitMockito2Test {
 
 
         // Act(Actuar)
-        Mascota registrada = mascotaService.registrarMascota(mascota);
+        Mascota registrada = mascotaService.registrarMascotaTipoUno(mascota);
 
         // Assert(Afirmar) : JUnit
 

@@ -4,6 +4,8 @@ public class Mascota {
 
     private Integer id;
     private String nombre;
+    private int edad;
+    private TipoDeMascota tipoDeMascota;
     private Propietario propietario;
 
     public Integer getId() {
@@ -28,5 +30,21 @@ public class Mascota {
 
     public void setPropietario(Propietario propietario) {
         this.propietario = propietario;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public TipoDeMascota getTipoDeMascota() {
+        return tipoDeMascota;
+    }
+
+    public void setTipoDeMascota(TipoDeMascota tipoDeMascota) {
+        this.tipoDeMascota = tipoDeMascota;
     }
 }

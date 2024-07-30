@@ -32,7 +32,7 @@ class MascotaService02HamcrestTest {
         mascota.setPropietario(propietario);
 
         // Act(Actuar)
-        Mascota registrada = mascotaService.registrarMascota(mascota);
+        Mascota registrada = mascotaService.registrarMascotaTipoUno(mascota);
 
         // Assert(Afirmar) : Hamcrest
 
